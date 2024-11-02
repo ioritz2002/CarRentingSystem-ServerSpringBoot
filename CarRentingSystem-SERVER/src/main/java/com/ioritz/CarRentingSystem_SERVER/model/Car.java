@@ -46,7 +46,7 @@ public class Car {
     /**
      * If the car is avaliable to rent will be true, otherwise will be false
      */
-    private Boolean avaliable;
+    private Boolean available;
     /**
      * The daily rent rate
      */
