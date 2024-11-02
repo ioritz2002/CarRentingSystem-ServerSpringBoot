@@ -1,9 +1,6 @@
 package com.ioritz.CarRentingSystem_SERVER.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 /**
@@ -39,4 +36,11 @@ public class Customer {
      * The address where the customer lives
      */
     private String address;
+
+    /**
+     * The rented car
+     */
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
 }
