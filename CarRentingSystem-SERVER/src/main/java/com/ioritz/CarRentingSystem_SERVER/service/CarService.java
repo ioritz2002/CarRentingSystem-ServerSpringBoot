@@ -74,7 +74,9 @@ public class CarService {
      * @param id the id of the car
      */
     public void deleteCar(Long id){
+        logger.info("Deleting car");
         carRepository.deleteById(id);
+        logger.info("Car deleted.");
     }
 
     /**
@@ -82,6 +84,9 @@ public class CarService {
      * @return A list with the available cars.
       */
     public List<Car> getAvailableCars(){
-        return carRepository.findByAvailableTrue();
+        logger.info("Searching for available cars");
+        List<Car> availableCars = carRepository.findByAvailableTrue();
+        logger.info("Available cars obtained, returning.");
+        return availableCars;
     }
 }
