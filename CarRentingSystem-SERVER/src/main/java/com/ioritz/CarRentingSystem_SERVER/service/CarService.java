@@ -34,9 +34,10 @@ public class CarService {
     /**
      * A method to find a car by the car id
      * @param id The id of the car
-     * @return If the car exists returns the car, if not exists returns  a runtime exteption.
+     * @return If the car exists returns the car, if not exists returns  a runtime exception.
+     * @throws RuntimeException in case that car is not found.
      */
-    public Car getCarById(Long id){
+    public Car getCarById(Long id) throws RuntimeException{
         logger.info("Searching for a car with ID: {}", id);
         return carRepository.findById(id)
                 .orElseThrow(() -> {
