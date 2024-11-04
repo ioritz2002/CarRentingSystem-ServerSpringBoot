@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This is the car service class
@@ -34,15 +35,16 @@ public class CarService {
     /**
      * A method to find a car by the car id
      * @param id The id of the car
-     * @return If the car exists returns the car, if not exists returns  a runtime exteption.
+     * @return If the car exists returns the car, if not exists returns  a runtime exception.
+     * @throws RuntimeException in case that car is not found.
      */
-    public Car getCarById(Long id){
+    public Car getCarById(Long id) throws RuntimeException{
         logger.info("Searching for a car with ID: {}", id);
-        return carRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("Car with ID {} not found", id);
-                    return new RuntimeException("Car not found");
-                });
+        Optional<Car> optionalCar = carRepository.findById(id);
+        if(optionalCar.isEmpty()){
+            throw new RuntimeException("Car not found");
+        }
+        return optionalCar.get();
     }
 
     /**
