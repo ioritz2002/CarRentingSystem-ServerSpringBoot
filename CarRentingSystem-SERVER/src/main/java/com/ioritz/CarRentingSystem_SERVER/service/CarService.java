@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * This is the car service class
  */
@@ -43,6 +45,12 @@ public class CarService {
                 });
     }
 
+    /**
+     * Updates the car
+     * @param id Tshe id of the car to update
+     * @param updatedCar The car with the new information.
+     * @return The updated car
+     */
     public Car updateCar(Long id, Car updatedCar){
         logger.info("Updating the car");
 
@@ -61,4 +69,19 @@ public class CarService {
         return car;
     }
 
+    /**
+     * Deletes the car by de id
+     * @param id the id of the car
+     */
+    public void deleteCar(Long id){
+        carRepository.deleteById(id);
+    }
+
+    /**
+     * Obtains the cars that are available for renting.
+     * @return A list with the available cars.
+      */
+    public List<Car> getAvailableCars(){
+        return carRepository.findByAvailableTrue();
+    }
 }
