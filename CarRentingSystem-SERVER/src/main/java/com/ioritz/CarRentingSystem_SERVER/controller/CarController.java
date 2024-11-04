@@ -41,14 +41,14 @@ public class CarController {
 
     @GetMapping("/{id}")
     public Car getCarById(@PathVariable Long id){
-        logger.info("Searching the car with ID: {}");
+        logger.info("Searching the car with ID: {}", id);
         Car car = null;
         try{
             car = carService.getCarById(id);
             logger.info("Car with ID: {} found", id);
 
         } catch (RuntimeException ex){
-            logger.warn("Car with ID {} not found");
+            logger.warn("Car with ID {} not found", id);
         }
         return car;
     }
