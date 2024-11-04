@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * This is the customer service class
  */
@@ -46,6 +48,22 @@ public class CustomerService {
                     logger.warn("Customer not found");
                     return new RuntimeException("Customer not found");
                 });
+    }
+
+    /**
+     * This method search customer by the email
+     * @param email the email of the customer to search
+     * @return the customer with that email.
+     */
+    public Customer getCustomerByMail(String email){
+        logger.info("Searching the customer with the Email: {}", email);
+        Optional<Customer> optionalCustomer = customerRepository.findByEmail(email);
+        if(optionalCustomer.isEmpty()){
+            logger.warn("Customer not found");
+            throw new RuntimeException("Customer not found");
+        }
+
+        return optionalCustomer.get();
     }
 
 
@@ -157,5 +175,7 @@ public class CustomerService {
         }
         return car;
     }
+
+
 
 }
