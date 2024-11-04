@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This is the car service class
@@ -39,11 +40,11 @@ public class CarService {
      */
     public Car getCarById(Long id) throws RuntimeException{
         logger.info("Searching for a car with ID: {}", id);
-        return carRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("Car with ID {} not found", id);
-                    return new RuntimeException("Car not found");
-                });
+        Optional<Car> optionalCar = carRepository.findById(id);
+        if(optionalCar.isEmpty()){
+            throw new RuntimeException("Car not found");
+        }
+        return optionalCar.get();
     }
 
     /**
